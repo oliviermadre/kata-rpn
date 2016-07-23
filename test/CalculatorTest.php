@@ -51,7 +51,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_multiply_values()
     {
-        $result = $this->SUT->compute('3 4 *');
+        $result = $this->SUT->compute('3 4 x');
         
         $this->assertEquals(12, $result);
     }
@@ -72,7 +72,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_141_on_complex_computation()
     {
         $result = $this->SUT->compute('3 5 8 x 7 + x');
-        
+
         $this->assertEquals(141, $result);
     }
     
@@ -91,7 +91,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_14_on_complex_computation()
     {
-        $result = $this->SUT->compute('1 2 + 4 × 5 + 3 −');
+        $result = $this->SUT->compute('1 2 + 4 x 5 + 3 -');
         
         $this->assertEquals(14, $result);
     }
