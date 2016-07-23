@@ -2,7 +2,10 @@
 
 namespace Kata\Test;
 
+use Kata\Algorithm\RPNAlgorithm;
 use Kata\Calculator;
+use Kata\Parser\TokenFactory;
+use Kata\Parser\TokenParser;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +16,13 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->SUT = new Calculator();
+        $this->SUT = new Calculator(
+            new TokenParser(
+                new TokenFactory(),
+                ' '
+            ),
+            new RPNAlgorithm()
+        );
     }
 
     /**

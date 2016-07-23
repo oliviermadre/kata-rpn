@@ -2,56 +2,29 @@
 
 namespace Kata;
 
+use Kata\Algorithm\CalculationAlgorithm;
+use Kata\Parser\TokenParser;
+
 class Calculator
 {
-    public function compute($string)
+    /**
+     * @var TokenParser
+     */
+    private $parser;
+
+    /**
+     * @param TokenParser $parser
+     * @param CalculationAlgorithm $algorithm
+     */
+    public function __construct(TokenParser $parser, CalculationAlgorithm $algorithm)
     {
-        $tokens = explode(' ', $string);
-
-        $storedValues = array();
-
-        foreach ($tokens as $token) {
-            if (is_numeric($token)) {
-                array_push($storedValues, (int)$token);
-                continue;
-            }
-
-            array_push($storedValues, $this->handle($token, $storedValues));
-        }
-
-        return $storedValues[0];
+        $this->parser = $parser;
+        $this->algorithm = $algorithm;
     }
 
-    private function handle($token, &$storedValues)
+    public function compute($string)
     {
-        $newValue = null;
-
-        switch($token) {
-            case '+':
-                $val2 = array_pop($storedValues);
-                $val1 = array_pop($storedValues);
-                $newValue = $val1 + $val2;
-                break;
-            case '-':
-                $val2 = array_pop($storedValues);
-                $val1 = array_pop($storedValues);
-                $newValue = $val1 - $val2;
-                break;
-            case '/':
-                $val2 = array_pop($storedValues);
-                $val1 = array_pop($storedValues);
-                $newValue = $val1 / $val2;
-                break;
-            case 'x':
-                $val2 = array_pop($storedValues);
-                $val1 = array_pop($storedValues);
-                $newValue = $val1 * $val2;
-                break;
-            case 'SQR':
-                $val = array_pop($storedValues);
-                $newValue = $val * $val;
-        }
-        
-        return $newValue;
+        $tokenCollection = $this->parser->parse($string);
+        return $this->algorithm->compute($tokenCollection);
     }
 }
