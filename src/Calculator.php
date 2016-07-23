@@ -24,24 +24,34 @@ class Calculator
 
     private function handle($token, &$storedValues)
     {
-        $val2 = array_pop($storedValues);
-        $val1 = array_pop($storedValues);
         $newValue = null;
 
         switch($token) {
             case '+':
+                $val2 = array_pop($storedValues);
+                $val1 = array_pop($storedValues);
                 $newValue = $val1 + $val2;
                 break;
             case '-':
+                $val2 = array_pop($storedValues);
+                $val1 = array_pop($storedValues);
                 $newValue = $val1 - $val2;
                 break;
             case '/':
+                $val2 = array_pop($storedValues);
+                $val1 = array_pop($storedValues);
                 $newValue = $val1 / $val2;
                 break;
             case 'x':
+                $val2 = array_pop($storedValues);
+                $val1 = array_pop($storedValues);
                 $newValue = $val1 * $val2;
                 break;
+            case 'SQR':
+                $val = array_pop($storedValues);
+                $newValue = $val * $val;
         }
+        
         return $newValue;
     }
 }

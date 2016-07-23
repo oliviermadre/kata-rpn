@@ -95,4 +95,15 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals(14, $result);
     }
+
+
+    /**
+     * @test
+     */
+    public function it_should_square_correctly()
+    {
+        $result = $this->SUT->compute('3 2 + SQR');
+
+        $this->assertEquals(25, $result);
+    }
 }
