@@ -6,6 +6,7 @@ use Kata\Algorithm\RPNAlgorithm;
 use Kata\Calculator;
 use Kata\Parser\TokenFactory;
 use Kata\Parser\TokenParser;
+use LogicException;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -114,5 +115,15 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         $result = $this->SUT->compute('3 2 + SQR');
 
         $this->assertEquals(25, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_throw_an_exception_with_unknown_operator()
+    {
+        $this->setExpectedException(LogicException::class);
+
+        $this->SUT->compute('3 2 wtf');
     }
 }

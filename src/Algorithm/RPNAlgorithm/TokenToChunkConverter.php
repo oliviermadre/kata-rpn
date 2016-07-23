@@ -9,6 +9,19 @@ use LogicException;
 
 class TokenToChunkConverter
 {
+    private $convertableOperators;
+
+    public function __construct()
+    {
+        $this->convertableOperators = [
+            DivideOperator::SYMBOL => DivideOperator::class,
+            MultiplyOperator::SYMBOL => MultiplyOperator::class,
+            SumOperator::SYMBOL => SumOperator::class,
+            SubstractOperator::SYMBOL => SubstractOperator::class,
+            SquareOperator::SYMBOL => SquareOperator::class
+        ];
+    }
+
     public function convertAll(TokenCollection $tokens)
     {
         $collection = new ChunkCollection();
@@ -31,23 +44,15 @@ class TokenToChunkConverter
 
     /**
      * @param Token $token
-     * @return DivideOperator|MultiplyOperator|SquareOperator|SubstractOperator|SumOperator
+     * @return Chunk
+     * @throw LogicException
      */
     private function convertTokenToOperator(Token $token)
     {
-        switch ($token->getValue()) {
-            case DivideOperator::SYMBOL:
-                return new DivideOperator();
-            case MultiplyOperator::SYMBOL:
-                return new MultiplyOperator();
-            case SumOperator::SYMBOL:
-                return new SumOperator();
-            case SubstractOperator::SYMBOL:
-                return new SubstractOperator();
-            case SquareOperator::SYMBOL:
-                return new SquareOperator();
-            default:
-                throw new LogicException("Unknown type");
+        if (array_key_exists($token->getValue(), $this->convertableOperators)) {
+            return new $this->convertableOperators[$token->getValue()]();
         }
+
+        throw new LogicException("Unknown type");
     }
 }
