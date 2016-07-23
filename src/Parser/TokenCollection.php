@@ -19,11 +19,6 @@ class TokenCollection implements Iterator
         $this->tokens[] = $token;
     }
 
-    public function pop()
-    {
-        return array_pop($this->tokens);
-    }
-
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the current element

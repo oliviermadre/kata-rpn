@@ -126,4 +126,14 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->SUT->compute('3 2 wtf');
     }
+
+    /**
+     * @test
+     */
+    public function it_should_work_with_float_numbers_too()
+    {
+        $result = $this->SUT->compute('1.5 2.3 4 + +');
+
+        $this->assertEquals(7.8, $result);
+    }
 }

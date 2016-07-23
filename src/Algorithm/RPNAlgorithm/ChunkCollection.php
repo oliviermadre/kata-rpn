@@ -18,11 +18,6 @@ class ChunkCollection implements Iterator
         array_push($this->chunks, $chunk);
     }
 
-    public function pop()
-    {
-        array_pop($this->chunks);
-    }
-
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the current element
